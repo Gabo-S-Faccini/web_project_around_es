@@ -1,3 +1,6 @@
+Perfecto, vamos a lo seguro. Aquí tienes el archivo completo con el nombre exacto que pide el ejercicio (handleProfileFormSubmit), cambiado en los dos lugares donde aparece (la definición de la función y el addEventListener):
+
+javascript
 const initialCards = [
   {
     name: "Valle de Yosemite",
@@ -30,18 +33,45 @@ const editPopup = document.querySelector("#edit-popup");
 
 const editPopupCloseButton = editPopup.querySelector(".popup__close");
 
+const profileTitle = document.querySelector(".profile__title");
+const profileDescription = document.querySelector(".profile__description");
+
+const editProfileForm = document.querySelector("#edit-profile-form");
+const editProfileNameInput = editProfileForm.querySelector('[name="name"]');
+const editProfileDescriptionInput = editProfileForm.querySelector(
+  '[name="description"]',
+);
+
 function openModal(modal) {
   modal.classList.add("popup_is-opened");
 }
 function closeModal(modal) {
   modal.classList.remove("popup_is-opened");
 }
+function fillProfileForm() {
+  editProfileNameInput.value = profileTitle.textContent;
+  editProfileDescriptionInput.value = profileDescription.textContent;
+}
+function handleOpenEditModal() {
+  fillProfileForm();
+  openModal(editPopup);
+}
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault();
+
+  profileTitle.textContent = editProfileNameInput.value;
+  profileDescription.textContent = editProfileDescriptionInput.value;
+
+  closeModal(editPopup);
+}
 
 profileEditButton.addEventListener("click", function () {
-  openModal(editPopup);
+  handleOpenEditModal();
 });
 
 editPopupCloseButton.addEventListener("click", function () {
   closeModal(editPopup);
 });
+editProfileForm.addEventListener("submit", handleProfileFormSubmit);
+
 initialCards.forEach(function (card) {});
