@@ -24,4 +24,24 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg",
   },
 ];
+const profileEditButton = document.querySelector(".profile__edit-button");
+
+const editPopup = document.querySelector("#edit-popup");
+
+const editPopupCloseButton = editPopup.querySelector(".popup__close");
+
+function openModal(modal) {
+  modal.classList.add("popup_is-opened");
+}
+function closeModal(modal) {
+  modal.classList.remove("popup_is-opened");
+}
+
+profileEditButton.addEventListener("click", function () {
+  openModal(editPopup);
+});
+
+editPopupCloseButton.addEventListener("click", function () {
+  closeModal(editPopup);
+});
 initialCards.forEach(function (card) {});
