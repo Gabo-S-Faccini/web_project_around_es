@@ -73,15 +73,17 @@ function handleProfileFormSubmit(evt) {
   closeModal(editPopup);
 }
 function handleLikeButtonClick(evt) {
-  evt.target.classList.toggle("card__like-button_active");
+  evt.target.classList.toggle("card__like-button_is-active");
 }
 function handleDeleteButtonClick(evt) {
   evt.target.closest(".card").remove();
 }
-function getCardElement(
+
+// No realicé ningún cambio en la ubicación del archivo placeholder porque ya estaba en la carpeta images.
+function getCardElement({
   name = "Sin título",
   link = "./images/placeholder.jpg",
-) {
+} = {}) {
   const cardElement = cardTemplate.cloneNode(true);
 
   const cardTitle = cardElement.querySelector(".card__title");
@@ -106,9 +108,9 @@ function getCardElement(
   return cardElement;
 }
 
-function renderCard(name, link, cardsContainer) {
-  const cardElement = getCardElement(name, link);
-  cardsContainer.prepend(cardElement);
+function renderCard(name, link, cardsContainer, method = "prepend") {
+  const cardElement = getCardElement({ name, link });
+  cardsContainer[method](cardElement);
 }
 
 function handleCardFormSubmit(evt) {
@@ -142,4 +144,6 @@ imagePopupCloseButton.addEventListener("click", function () {
   closeModal(imagePopup);
 });
 
-initialCards.forEach((card) => renderCard(card.name, card.link, cardsList));
+initialCards.forEach((card) =>
+  renderCard(card.name, card.link, cardsList, "append"),
+);
